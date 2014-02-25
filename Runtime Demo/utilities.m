@@ -167,6 +167,52 @@ void observeClassPropertyChanges2(Class class)
     method_setImplementation(forwardInvocationMethod, imp_implementationWithBlock(block));
 }
 
+NSString *NSStringFromUIControlEvents(UIControlEvents events)
+{
+    NSMutableArray *strings = [NSMutableArray array];
+
+    #define CHECK_AND_ADD_EVENT_TYPE(event)\
+    ({\
+        BOOL eventMatches = ((events & event) == event);\
+        if (eventMatches) {\
+            [strings addObject:[NSString stringWithUTF8String:#event]];\
+        };\
+        eventMatches;\
+    })
+
+    if (!CHECK_AND_ADD_EVENT_TYPE(UIControlEventAllEvents))
+    {
+        if (!CHECK_AND_ADD_EVENT_TYPE(UIControlEventAllTouchEvents)) {
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDown);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDownRepeat);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDragInside);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDragOutside);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDragEnter);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchDragExit);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchUpInside);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchUpOutside);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventTouchCancel);
+        }
+
+        if (!CHECK_AND_ADD_EVENT_TYPE(UIControlEventAllEditingEvents)) {
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventEditingDidBegin);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventEditingChanged);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventEditingDidEnd);
+            CHECK_AND_ADD_EVENT_TYPE(UIControlEventEditingDidEndOnExit);
+        }
+
+        CHECK_AND_ADD_EVENT_TYPE(UIControlEventValueChanged);
+
+        CHECK_AND_ADD_EVENT_TYPE(UIControlEventApplicationReserved);
+        CHECK_AND_ADD_EVENT_TYPE(UIControlEventSystemReserved);
+    }
+
+#undef STRINGIFY
+#undef CHECK_AND_ADD_EVENT_TYPE
+
+    return [strings componentsJoinedByString:@", "];
+}
+
 #define METHOD_SWIZZLE1_IMPL(type)\
 METHOD_SWIZZLE1_DECLARATION(type)\
 {\
