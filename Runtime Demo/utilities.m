@@ -3,6 +3,7 @@
 // Copyright (c) 2014 e-Legion. All rights reserved.
 //
 #import "utilities.h"
+#import <objc/message.h>
 
 static NSString *setterNameForPropertyWithName(NSString *propertyName)
 {
@@ -115,5 +116,54 @@ void observeClassPropertyChanges(Class class)
         free(argumentEncoding);
     }
     free(properties);
+}
+
+void observeClassPropertyChanges2(Class class)
+{
+    unsigned int propertyCount = 0;
+    objc_property_t *properties = class_copyPropertyList(class, &propertyCount);
+
+    NSMutableSet *capturedSelectorsSet = [NSMutableSet set];
+
+    for (unsigned int i=0; i<propertyCount; i++) {
+        objc_property_t property = properties[i];
+
+        char *readonlyFlag = property_copyAttributeValue(property, "R");
+        if (NULL != readonlyFlag) {
+            free(readonlyFlag);
+            continue;
+        }
+
+        NSString *setterName = property_getSetterName(property);
+        SEL setterSelector = NSSelectorFromString(setterName);
+
+        [capturedSelectorsSet addObject:setterName];
+
+        Method method = class_getInstanceMethod(class, setterSelector);
+
+        IMP originalImp = method_setImplementation(method, _objc_msgForward);
+
+        NSString *internalSetterName = [setterName stringByAppendingString:@"_internal"];
+        SEL internalSelector = NSSelectorFromString(internalSetterName);
+        char const *types = method_getTypeEncoding(method);
+        class_addMethod(class, internalSelector, originalImp, types);
+    }
+    free(properties);
+
+    Method forwardInvocationMethod = class_getInstanceMethod(class, @selector(forwardInvocation:));
+    IMP originalForwardInvocationImp = method_getImplementation(forwardInvocationMethod);
+    void(^block)(id, NSInvocation *) = ^void(id self, NSInvocation *invocation) {
+        NSString *selectorName = NSStringFromSelector([invocation selector]);
+
+        if ([capturedSelectorsSet containsObject:selectorName]) {
+            NSString *internalSelectorName = [selectorName stringByAppendingString:@"_internal"];
+            [invocation setSelector:NSSelectorFromString(internalSelectorName)];
+            [invocation invoke];
+        } else {
+            ((void(*)(id, SEL, NSInvocation *))originalForwardInvocationImp)(self, @selector(forwardInvocation:), invocation);
+        }
+    };
+
+    method_setImplementation(forwardInvocationMethod, imp_implementationWithBlock(block));
 }
 

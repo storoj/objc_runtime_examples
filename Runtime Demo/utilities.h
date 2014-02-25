@@ -8,3 +8,4 @@
 NSString *property_getSetterName(objc_property_t property);
 objc_property_t class_getPropertyWithSetter(Class class, SEL selector);
 void observeClassPropertyChanges(Class class);
+void observeClassPropertyChanges2(Class class);

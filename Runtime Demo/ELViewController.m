@@ -11,8 +11,9 @@
 #import "utilities.h"
 
 
-#define CLASS_OBSERVING_TEST 0
-#define OBSERVER_TEST 1
+#define CLASS_OBSERVING_TEST 1
+#define CLASS_OBSERVING_TEST2 1
+#define OBSERVER_TEST 0
 
 #if (OBSERVER_TEST)
 #import "Observer.h"
@@ -28,13 +29,16 @@
     observeClassPropertyChanges([ELSample class]);
 #endif
 
+#if (CLASS_OBSERVING_TEST2)
+    observeClassPropertyChanges2([ELSample class]);
+#endif
+
     ELSample *sample = [ELSample new];
 
 #if (OBSERVER_TEST)
     [Observer observerWithObject:sample];
-#endif
-
     NSLog(@"class: %@", NSStringFromClass([sample class]));
+#endif
 
 #define TEST_FRAME 1
 #define TEST_RANGE 1
