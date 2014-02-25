@@ -94,6 +94,10 @@ void observeClassPropertyChanges(Class class)
         CHECK_TYPE(CGPoint)
         CHECK_TYPE(NSRange)
 
+#undef CHECK_TYPE
+#undef IS_ENCODED_TYPE
+#undef IMP_BLOCK_WITH_ARG_TYPE
+
         if (nil != block) {
             IMP newImp = imp_implementationWithBlock(block);
 
