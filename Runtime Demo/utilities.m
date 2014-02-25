@@ -53,9 +53,55 @@ void observeClassPropertyChanges(Class class)
 {
     unsigned int propertyCount = 0;
     objc_property_t *properties = class_copyPropertyList(class, &propertyCount);
+
     for (unsigned int i=0; i<propertyCount; i++) {
         objc_property_t property = properties[i];
-        // code
+
+        NSString *setterName = property_getSetterName(property);
+        SEL setterSelector = NSSelectorFromString(setterName);
+
+        Method method = class_getInstanceMethod(class, setterSelector);
+        IMP originalImp = method_getImplementation(method);
+
+#define IMP_BLOCK_WITH_ARG_TYPE(argumentType)\
+    ^id(id self, argumentType arg) {\
+        NSLog(@"changing %s", property_getName(property));\
+        ((void(*)(id, SEL, argumentType))originalImp)(self, setterSelector, arg);\
+        return nil;\
+    };
+
+        // 0 - self, 1 - _cmd
+        char *argumentEncoding = method_copyArgumentType(method, 2);
+
+#define IS_ENCODED_TYPE(type)\
+    (0 == strcmp(argumentEncoding, @encode(type)))
+
+        id block = nil;
+
+#define CHECK_TYPE(type)\
+    if (nil == block && IS_ENCODED_TYPE(type)) {\
+        block = IMP_BLOCK_WITH_ARG_TYPE(type);\
+    }
+
+        CHECK_TYPE(id)
+        CHECK_TYPE(NSUInteger)
+        CHECK_TYPE(NSInteger)
+        CHECK_TYPE(CGFloat)
+        CHECK_TYPE(double)
+        CHECK_TYPE(BOOL)
+        CHECK_TYPE(CGRect)
+        CHECK_TYPE(CGSize)
+        CHECK_TYPE(CGPoint)
+        CHECK_TYPE(NSRange)
+
+        if (nil != block) {
+            IMP newImp = imp_implementationWithBlock(block);
+
+            method_setImplementation(method, newImp);
+        } else {
+            NSLog(@"unknown type encoding: %s", argumentEncoding);
+        }
     }
     free(properties);
 }
+
