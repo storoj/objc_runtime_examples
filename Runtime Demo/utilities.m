@@ -3,7 +3,6 @@
 // Copyright (c) 2014 e-Legion. All rights reserved.
 //
 #import "utilities.h"
-#import <objc/runtime.h>
 
 static NSString *setterNameForPropertyWithName(NSString *propertyName)
 {
@@ -12,7 +11,7 @@ static NSString *setterNameForPropertyWithName(NSString *propertyName)
     return [NSString stringWithFormat:@"set%@%@:", firstLetter, remainingSetterName];
 }
 
-static NSString *property_getSetterName(objc_property_t property)
+NSString *property_getSetterName(objc_property_t property)
 {
     char *setterAttributeValue = property_copyAttributeValue(property, "S");
 
@@ -27,6 +26,27 @@ static NSString *property_getSetterName(objc_property_t property)
 
     const char *propertyName = property_getName(property);
     return setterNameForPropertyWithName([NSString stringWithUTF8String:propertyName]);
+}
+
+objc_property_t class_getPropertyWithSetter(Class class, SEL selector)
+{
+    // TODO cache values
+
+    unsigned int propertiesCount = 0;
+    objc_property_t *properties = class_copyPropertyList(class, &propertiesCount);
+
+    NSString *selectorName = NSStringFromSelector(selector);
+
+    for (unsigned int i=0; i<propertiesCount; i++) {
+        objc_property_t property = properties[i];
+        NSString *setterName = property_getSetterName(property);
+
+        if ([setterName isEqualToString:selectorName]) {
+            return property;
+        }
+    }
+
+    return NULL;
 }
 
 void observeClassPropertyChanges(Class class)
