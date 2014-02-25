@@ -8,4 +8,7 @@
 @end
 
 @implementation ELSample
+
+@synthesize valid = ivar_valid;
+
 @end
