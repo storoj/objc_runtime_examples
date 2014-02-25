@@ -101,6 +101,8 @@ void observeClassPropertyChanges(Class class)
         } else {
             NSLog(@"unknown type encoding: %s", argumentEncoding);
         }
+
+        free(argumentEncoding);
     }
     free(properties);
 }
