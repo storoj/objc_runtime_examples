@@ -21,6 +21,7 @@
 		CAD42A70F6C5F91FF8276035 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD427518E59D0C197BB67A5 /* Foundation.framework */; };
 		CAD42B8023FF8173E8D65997 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD42DCA954EEB956A43EF53 /* UIKit.framework */; };
 		CAD42D942D1A74DA13A97414 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD427518E59D0C197BB67A5 /* Foundation.framework */; };
+		CAD42F1213FE0ADA6341FA03 /* utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD42649CD0218B452F54460 /* utilities.m */; };
 		CAD42F9F8C298C915520BE3C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAD42134F9A5E55039DADD78 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +40,10 @@
 		CAD42147F6911685E1A6342F /* Runtime DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Runtime DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD42271FC0986BFB4846BCF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		CAD4228E7B2EDFDAB627BBA5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CAD422DCD1D78F60D2F163FD /* utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = utilities.h; sourceTree = "<group>"; };
 		CAD424F314257247CC3151B5 /* ELAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ELAppDelegate.m; sourceTree = "<group>"; };
 		CAD42519270453BAD2CFE4DD /* Runtime Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runtime Demo-Prefix.pch"; sourceTree = "<group>"; };
+		CAD42649CD0218B452F54460 /* utilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = utilities.m; sourceTree = "<group>"; };
 		CAD427518E59D0C197BB67A5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		CAD428B42D38E3F069A9E69D /* Runtime Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Runtime Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAD429301419436C999AACB7 /* ELViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ELViewController.m; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				CAD429301419436C999AACB7 /* ELViewController.m */,
 				CAD42B74CA3F01FCDA7A221C /* ELSample.m */,
 				CAD42D653B39E4F1F3CCFF5A /* ELSample.h */,
+				CAD42649CD0218B452F54460 /* utilities.m */,
+				CAD422DCD1D78F60D2F163FD /* utilities.h */,
 			);
 			path = "Runtime Demo";
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				CAD423642054D09C1C9E2526 /* ELAppDelegate.m in Sources */,
 				CAD4262031136C49F846FC29 /* ELViewController.m in Sources */,
 				CAD42771CC394CAC52150296 /* ELSample.m in Sources */,
+				CAD42F1213FE0ADA6341FA03 /* utilities.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
