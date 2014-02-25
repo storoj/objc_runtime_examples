@@ -57,6 +57,12 @@ void observeClassPropertyChanges(Class class)
     for (unsigned int i=0; i<propertyCount; i++) {
         objc_property_t property = properties[i];
 
+        char *readonlyFlag = property_copyAttributeValue(property, "R");
+        if (NULL != readonlyFlag) {
+            free(readonlyFlag);
+            continue;
+        }
+
         NSString *setterName = property_getSetterName(property);
         SEL setterSelector = NSSelectorFromString(setterName);
 
