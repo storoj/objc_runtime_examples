@@ -18,10 +18,6 @@
 #import "Observer.h"
 #endif
 
-@interface ELViewController ()
-
-@end
-
 @implementation ELViewController
 
 - (void)viewDidLoad
