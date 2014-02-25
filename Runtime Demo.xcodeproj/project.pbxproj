@@ -15,6 +15,7 @@
 		CAD4248BD2819C1B7C3EA83B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD420EA7CE277FB8478BEE9 /* CoreGraphics.framework */; };
 		CAD42529171BBF0D64A71F45 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD42A341F710016A8122F0E /* main.m */; };
 		CAD4262031136C49F846FC29 /* ELViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD429301419436C999AACB7 /* ELViewController.m */; };
+		CAD42771CC394CAC52150296 /* ELSample.m in Sources */ = {isa = PBXBuildFile; fileRef = CAD42B74CA3F01FCDA7A221C /* ELSample.m */; };
 		CAD428A4599232A65939FCDA /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = CAD42372891D420856DAD8FB /* InfoPlist.strings */; };
 		CAD428B9435AA287CAB1F2A8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD42DCA954EEB956A43EF53 /* UIKit.framework */; };
 		CAD42A70F6C5F91FF8276035 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CAD427518E59D0C197BB67A5 /* Foundation.framework */; };
@@ -47,7 +48,9 @@
 		CAD42A41854760EC33AF1436 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		CAD42A80E8739CFF847E6DEB /* Runtime Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "Runtime Demo-Info.plist"; sourceTree = "<group>"; };
 		CAD42A95DCCD8E641BA312AC /* Runtime DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.info; path = "Runtime DemoTests-Info.plist"; sourceTree = "<group>"; };
+		CAD42B74CA3F01FCDA7A221C /* ELSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELSample.m; sourceTree = "<group>"; };
 		CAD42C2E0574925FFC980868 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		CAD42D653B39E4F1F3CCFF5A /* ELSample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELSample.h; sourceTree = "<group>"; };
 		CAD42DCA954EEB956A43EF53 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		CAD42F00E6A38F08C47A3DA9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CAD42F785FDB3E67A7FB3A4C /* Runtime_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Runtime_DemoTests.m; sourceTree = "<group>"; };
@@ -117,6 +120,8 @@
 				CAD42134F9A5E55039DADD78 /* Main.storyboard */,
 				CAD42F7AC8142D7F4774EDC8 /* ELViewController.h */,
 				CAD429301419436C999AACB7 /* ELViewController.m */,
+				CAD42B74CA3F01FCDA7A221C /* ELSample.m */,
+				CAD42D653B39E4F1F3CCFF5A /* ELSample.h */,
 			);
 			path = "Runtime Demo";
 			sourceTree = "<group>";
@@ -253,6 +258,7 @@
 				CAD42529171BBF0D64A71F45 /* main.m in Sources */,
 				CAD423642054D09C1C9E2526 /* ELAppDelegate.m in Sources */,
 				CAD4262031136C49F846FC29 /* ELViewController.m in Sources */,
+				CAD42771CC394CAC52150296 /* ELSample.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
