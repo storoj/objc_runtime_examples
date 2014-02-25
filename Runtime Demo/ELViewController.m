@@ -10,6 +10,14 @@
 #import "ELSample.h"
 #import "utilities.h"
 
+
+#define CLASS_OBSERVING_TEST 0
+#define OBSERVER_TEST 1
+
+#if (OBSERVER_TEST)
+#import "Observer.h"
+#endif
+
 @interface ELViewController ()
 
 @end
@@ -20,9 +28,15 @@
 {
     [super viewDidLoad];
 
+#if (CLASS_OBSERVING_TEST)
     observeClassPropertyChanges([ELSample class]);
+#endif
 
     ELSample *sample = [ELSample new];
+
+#if (OBSERVER_TEST)
+    [Observer observerWithObject:sample];
+#endif
 
     NSLog(@"class: %@", NSStringFromClass([sample class]));
 
