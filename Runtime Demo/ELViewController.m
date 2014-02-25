@@ -19,6 +19,14 @@
 #import "Observer.h"
 #endif
 
+@interface ELViewController () <UITableViewDataSource>
+
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UILabel *label;
+
+
+@end
+
 @implementation ELViewController
 
 - (void)viewDidLoad
@@ -74,6 +82,33 @@
 #undef TEST_IS_VALID
 #undef TEST_VALUES
 
+}
+
+- (IBAction)buttonTap:(id)sender
+{
+    NSLog(@"button tap");
+}
+
+- (IBAction)datePickerEditingChanged:(id)sender
+{
+    
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return nil;
 }
 
 @end
