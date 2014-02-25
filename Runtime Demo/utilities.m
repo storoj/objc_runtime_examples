@@ -167,3 +167,29 @@ void observeClassPropertyChanges2(Class class)
     method_setImplementation(forwardInvocationMethod, imp_implementationWithBlock(block));
 }
 
+#define METHOD_SWIZZLE1_IMPL(type)\
+METHOD_SWIZZLE1_DECLARATION(type)\
+{\
+    SEL selector = method_getName(method);\
+\
+    IMP originalImp = method_getImplementation(method);\
+\
+    id(^newImpBlock)(id, type) = ^(id self, type arg) {\
+        if (before) {\
+            before(self, selector, arg);\
+        }\
+\
+        id result = ((id(*)(id, SEL, type))originalImp)(self, selector, arg);\
+\
+        if (after) {\
+            after(self, selector, arg);\
+        }\
+        return result;\
+    };\
+\
+    IMP newImp = imp_implementationWithBlock(newImpBlock);\
+\
+    method_setImplementation(method, newImp);\
+}
+
+METHOD_SWIZZLE1_IMPL(id)
